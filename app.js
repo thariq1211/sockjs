@@ -1,7 +1,7 @@
 var stompClient = null;
 
 var url = "https://iswitch.ddns.net:8199";
-var captured = "199";
+var captured = "188";
 var result = captured ? captured : "defaultValue";
 
 console.log("extension_user = " + result);
@@ -25,7 +25,7 @@ function connect() {
     setConnected(true);
     console.log("Connected: " + frame);
 
-    stompClient.subscribe("/topic/acw/199", (greeting) => {
+    stompClient.subscribe(`/topic/acw/${captured}`, (greeting) => {
       const res = JSON.parse(greeting.body);
       console.log({ res });
       showGreeting(res.detail);
@@ -40,7 +40,7 @@ function sendName() {
     JSON.stringify({
       extension: captured,
       cases: "3",
-      detail: "ini detail 3",
+      detail: $("#name").val(),
     })
   );
 }
